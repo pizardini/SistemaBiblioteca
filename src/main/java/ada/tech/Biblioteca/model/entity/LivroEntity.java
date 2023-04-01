@@ -22,7 +22,14 @@ public class LivroEntity {
     private String isbn;
 
 //    private Long editora_id;
+    @ManyToOne
+    @JoinColumn(name="editora")
+    private EditoraEntity editoraEntity;
+
 //    private Long categoria_id;
+    @ManyToOne
+    @JoinColumn(name="categoria")
+    private CategoriaEntity categoriaEntity;
 
     public LivroEntity update(LivroDTO livro) {
         this.id = livro.getId();

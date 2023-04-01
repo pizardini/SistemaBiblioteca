@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -21,10 +23,13 @@ public class CategoriaEntity {
     @Column (name="descrição")
     private String descricao;
 
-    public CategoriaEntity update(CategoriaDTO categoria) {
-        this.id = categoria.getId();
-        this.nome = categoria.getNome();
-        this.descricao = categoria.getDescricao();
-        return this;
-    }
+    @OneToMany(mappedBy = "categoriaEntity")
+    private List<LivroEntity> listaLivros;
+
+//    public CategoriaEntity update(CategoriaDTO categoria) {
+//        this.id = categoria.getId();
+//        this.nome = categoria.getNome();
+//        this.descricao = categoria.getDescricao();
+//        return this;
+//    }
 }

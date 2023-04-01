@@ -2,6 +2,7 @@ package ada.tech.Biblioteca.service;
 
 import ada.tech.Biblioteca.model.dto.CategoriaDTO;
 import ada.tech.Biblioteca.model.entity.CategoriaEntity;
+import ada.tech.Biblioteca.model.mapper.CategoriaMapper;
 import ada.tech.Biblioteca.repository.CategoriaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +17,35 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repository;
 
+    @Autowired
+    private CategoriaMapper mapper;
+
 
     public CategoriaDTO pegarPorId(Long id) {
         Optional<CategoriaEntity> categoriaEntityOp = repository.findById(id);
 
         if (categoriaEntityOp.isPresent()) {
             CategoriaEntity categoriaEntity = categoriaEntityOp.get();
-            return new CategoriaDTO().update(categoriaEntity);
+            return mapper.update(categoriaEntity);
         }
 
         throw new EntityNotFoundException("Categoria não encontrada");
     }
 
     public CategoriaDTO criar(CategoriaDTO categoriaDTO) {
-        CategoriaEntity categoria = new CategoriaEntity().update(categoriaDTO);
+        CategoriaEntity categoria = mapper.update(categoriaDTO);
         categoria = repository.save(categoria);
 
-        return new CategoriaDTO().update(categoria);
+        return mapper.update(categoria);
     }
 
     public CategoriaDTO editar(CategoriaDTO categoriaDTO, Long id) {
         if (repository.existsById(id)) {
-            CategoriaEntity categoriaEntity = new CategoriaEntity().update(categoriaDTO);
+            CategoriaEntity categoriaEntity = mapper.update(categoriaDTO);
             categoriaEntity.setId(id);
             categoriaEntity = repository.save(categoriaEntity);
 
-            return new CategoriaDTO().update(categoriaEntity);
+            return mapper.update(categoriaEntity);
         }
 
         throw new EntityNotFoundException("Categoria não encontrada");
@@ -61,7 +65,7 @@ public class CategoriaService {
 
     public List<CategoriaDTO> listar() {
         List<CategoriaEntity> listaEntities = repository.findAll();
-        return listaEntities.stream().map(categoriaEntity -> new CategoriaDTO().update(categoriaEntity)).toList();
+        return mapper.updateListDTO(listaEntities);
     }
 
 }

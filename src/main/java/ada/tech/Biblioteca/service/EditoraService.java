@@ -4,6 +4,8 @@ import ada.tech.Biblioteca.model.dto.CategoriaDTO;
 import ada.tech.Biblioteca.model.dto.EditoraDTO;
 import ada.tech.Biblioteca.model.entity.CategoriaEntity;
 import ada.tech.Biblioteca.model.entity.EditoraEntity;
+import ada.tech.Biblioteca.model.mapper.CategoriaMapper;
+import ada.tech.Biblioteca.model.mapper.EditoraMapper;
 import ada.tech.Biblioteca.repository.CategoriaRepository;
 import ada.tech.Biblioteca.repository.EditoraRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,6 +20,9 @@ public class EditoraService {
 
     @Autowired
     private EditoraRepository repository;
+
+    @Autowired
+    private EditoraMapper mapper;
 
     public EditoraDTO pegarPorId(Long id) {
         Optional<EditoraEntity> editoraEntityOp = repository.findById(id);
@@ -63,6 +68,6 @@ public class EditoraService {
 
     public List<EditoraDTO> listar() {
         List<EditoraEntity> listaEntities = repository.findAll();
-        return listaEntities.stream().map(editoraEntity -> new EditoraDTO().update(editoraEntity)).toList();
+        return mapper.updateListDTO(listaEntities);
     }
 }

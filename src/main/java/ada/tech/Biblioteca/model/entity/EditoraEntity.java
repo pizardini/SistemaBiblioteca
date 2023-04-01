@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -20,6 +22,9 @@ public class EditoraEntity {
 
     @Column(name="descricao")
     private String descricao;
+
+    @OneToMany(mappedBy = "editoraEntity")
+    private List<LivroEntity> listaLivros;
 
     public EditoraEntity update(EditoraDTO editora) {
         this.id = editora.getId();

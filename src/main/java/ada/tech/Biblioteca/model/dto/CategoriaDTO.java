@@ -11,12 +11,12 @@ public class CategoriaDTO {
     private String nome;
     private String descricao;
 
-    public CategoriaDTO update(CategoriaEntity categoria) {
-        this.id = categoria.getId();
-        this.nome = categoria.getNome();
-        this.descricao = categoria.getDescricao();
-        return this;
-    }
+//    public CategoriaDTO update(CategoriaEntity categoria) {
+//        this.id = categoria.getId();
+//        this.nome = categoria.getNome();
+//        this.descricao = categoria.getDescricao();
+//        return this;
+//    }
 
 }
 

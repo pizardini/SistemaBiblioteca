@@ -2,6 +2,7 @@ package ada.tech.Biblioteca.service;
 
 import ada.tech.Biblioteca.model.dto.LivroDTO;
 import ada.tech.Biblioteca.model.entity.LivroEntity;
+import ada.tech.Biblioteca.model.mapper.LivroMapper;
 import ada.tech.Biblioteca.repository.LivroRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class LivroService {
 
     @Autowired
     private LivroRepository repository;
+
+    @Autowired
+    private LivroMapper mapper;
 
     public LivroDTO pegarPorId(Long id) {
         Optional<LivroEntity> livroEntityOp = repository.findById(id);
@@ -60,6 +64,6 @@ public class LivroService {
 
     public List<LivroDTO> listar() {
         List<LivroEntity> listaEntities = repository.findAll();
-        return listaEntities.stream().map(livroEntity -> new LivroDTO().update(livroEntity)).toList();
+        return mapper.updateListDTO(listaEntities);
     }
 }
