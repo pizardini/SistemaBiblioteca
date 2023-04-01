@@ -1,6 +1,7 @@
 package ada.tech.Biblioteca.controller;
 
 import ada.tech.Biblioteca.model.dto.CategoriaDTO;
+import ada.tech.Biblioteca.model.dto.MensagemDTO;
 import ada.tech.Biblioteca.service.CategoriaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +73,9 @@ public class CategoriaController {
     public ResponseEntity<Object> editar(@RequestBody CategoriaDTO categoriaDTO, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(categoriaService.editar(categoriaDTO, id));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -79,10 +83,13 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deletar(@PathVariable("id") Long id) {
         try {
             categoriaService.deletar(id);
-            return ResponseEntity.ok("Categoria com id "+id+" removido com sucesso!");
+            return ResponseEntity.ok(new MensagemDTO("Categoria com id "+id+" removido com sucesso!"));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

@@ -1,6 +1,7 @@
 package ada.tech.Biblioteca.controller;
 
 import ada.tech.Biblioteca.model.dto.LivroDTO;
+import ada.tech.Biblioteca.model.dto.MensagemDTO;
 import ada.tech.Biblioteca.service.EditoraService;
 import ada.tech.Biblioteca.service.LivroService;
 import jakarta.persistence.EntityNotFoundException;
@@ -59,6 +60,9 @@ public class LivroController {
     public ResponseEntity<Object> editar(@RequestBody LivroDTO livroDTO, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(livroService.editar(livroDTO, id));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -66,10 +70,13 @@ public class LivroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deletar(@PathVariable("id") Long id) {
         try {
             livroService.deletar(id);
-            return ResponseEntity.ok("Livro com id "+id+" removido com sucesso");
+            return ResponseEntity.ok(new MensagemDTO("Livro com id "+id+" removido com sucesso"));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

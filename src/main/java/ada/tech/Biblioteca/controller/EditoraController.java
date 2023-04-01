@@ -1,6 +1,7 @@
 package ada.tech.Biblioteca.controller;
 
 import ada.tech.Biblioteca.model.dto.EditoraDTO;
+import ada.tech.Biblioteca.model.dto.MensagemDTO;
 import ada.tech.Biblioteca.service.EditoraService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class EditoraController {
             return ResponseEntity.ok(editoraService.listar());
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
 
     }
@@ -36,10 +37,10 @@ public class EditoraController {
             return ResponseEntity.ok(editoraService.pegarPorId(id));
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
 
     }
@@ -50,7 +51,7 @@ public class EditoraController {
             return ResponseEntity.status(HttpStatus.CREATED).body(editoraService.criar(editoraDTO));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
@@ -58,21 +59,27 @@ public class EditoraController {
     public ResponseEntity<Object> editar(@RequestBody EditoraDTO editoraDTO, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(editoraService.editar(editoraDTO, id));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deletar(@PathVariable("id") Long id) {
 
         try {
             editoraService.deletar(id);
-            return ResponseEntity.ok("Editora com id "+id+" removido com sucesso");
+            return ResponseEntity.ok(new MensagemDTO("Editora com id "+id+" removido com sucesso"));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 }
