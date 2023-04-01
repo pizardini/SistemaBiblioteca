@@ -25,7 +25,7 @@ public class LivroService {
 
         if(livroEntityOp.isPresent()) {
             LivroEntity livroEntity = livroEntityOp.get();
-            return new LivroDTO().update(livroEntity);
+            return mapper.update(livroEntity);
         }
 
         throw new EntityNotFoundException("Livro não encontrado");
@@ -35,7 +35,7 @@ public class LivroService {
         LivroEntity livro = new LivroEntity().update(livroDTO);
         livro = repository.save(livro);
 
-        return new LivroDTO().update(livro);
+        return mapper.update(livro);
     }
 
     public LivroDTO editar(LivroDTO livroDTO, Long id) {
@@ -44,7 +44,7 @@ public class LivroService {
             livroEntity.setId(id);
             livroEntity = repository.save(livroEntity);
 
-            return new LivroDTO().update(livroEntity);
+            return mapper.update(livroEntity);
         }
 
         throw new EntityNotFoundException("Livro não encontrado");

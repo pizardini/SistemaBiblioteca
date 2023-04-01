@@ -10,16 +10,16 @@ import lombok.Setter;
 public class LivroDTO {
     private Long id;
     private String nome;
-//    private Long editora_id;
-//    private Long categoria_id;
+    private EditoraDTO editora;
+    private CategoriaDTO categoria;
     private String isbn;
 
-    public LivroDTO update(LivroEntity livro) {
-        this.id = livro.getId();
-        this.nome = livro.getNome();
-        this.isbn = livro.getIsbn();
-        return this;
-    }
+//    public LivroDTO update(LivroEntity livro) {
+//        this.id = livro.getId();
+//        this.nome = livro.getNome();
+//        this.isbn = livro.getIsbn();
+//        return this;
+//    }
 
 }
 

@@ -29,7 +29,7 @@ public class EditoraService {
 
         if(editoraEntityOp.isPresent()) {
             EditoraEntity editoraEntity = editoraEntityOp.get();
-            return new EditoraDTO().update(editoraEntity);
+            return mapper.update(editoraEntity);
         }
 
         throw new EntityNotFoundException("Editora não encontrada");
@@ -39,7 +39,7 @@ public class EditoraService {
         EditoraEntity editora = new EditoraEntity().update(editoraDTO);
         editora = repository.save(editora);
 
-        return new EditoraDTO().update(editora);
+        return mapper.update(editora);
     }
 
     public EditoraDTO editar(EditoraDTO editoraDTO, Long id) {
@@ -48,7 +48,7 @@ public class EditoraService {
             editoraEntity.setId(id);
             editoraEntity = repository.save(editoraEntity);
 
-            return new EditoraDTO().update(editoraEntity);
+            return mapper.update(editoraEntity);
         }
 
         throw new EntityNotFoundException("Editora não encontrada");
