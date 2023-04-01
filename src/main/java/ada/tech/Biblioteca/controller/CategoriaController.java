@@ -1,80 +1,46 @@
 package ada.tech.Biblioteca.controller;
 
-import ada.tech.Biblioteca.model.Categoria;
+import ada.tech.Biblioteca.model.dto.CategoriaDTO;
+import ada.tech.Biblioteca.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    private List<Categoria> lista = new ArrayList<>();
-    private Integer contador = 1;
+    @Autowired
+    private CategoriaService categoriaService;
+
 
     @GetMapping
-    public List<Categoria> listar(){
-        return lista;
+    public List<CategoriaDTO> listar(){
+        return categoriaService.listar();
     }
 
     @GetMapping("/{id}")
-    public Categoria pegarUm(@PathVariable("id") Integer id){
-
-        Integer indice = null;
-        for(Integer i = 0;i<lista.size();i++) {
-            if(lista.get(i).getId().equals(id)) {
-                indice = i;
-                break;
-            }
-        }
-
-        return lista.get(indice);
+    public CategoriaDTO pegarUm(@PathVariable("id") Long id){
+        return categoriaService.pegarPorId(id);
     }
 
     @PostMapping
-    public Categoria criar(@RequestBody Categoria categoria) {
-
-        categoria.setId(contador);
-        lista.add(categoria);
-        contador++;
-
-        return categoria;
+    public CategoriaDTO criar(@RequestBody CategoriaDTO categoriaDTO) {
+        return categoriaService.criar(categoriaDTO);
     }
 
     @PutMapping("/{id}")
-    public Categoria editar(
-            @RequestBody Categoria categoria,
-            @PathVariable("id") Integer id) {
+    public CategoriaDTO editar(
+            @RequestBody CategoriaDTO categoriaDTO,
+            @PathVariable("id") Long id) {
 
-        categoria.setId(id);
-
-        Integer indice = null;
-        for(Integer i = 0;i<lista.size();i++) {
-            if(lista.get(i).getId().equals(id)) {
-                indice = i;
-                break;
-            }
-        }
-
-        lista.set(indice, categoria);
-
-        return categoria;
+        return categoriaService.editar(categoriaDTO, id);
     }
 
     @DeleteMapping("/{id}")
-    public String editar(
-            @PathVariable("id") Integer id) {
-
-        int indice = -1;
-        for(Integer i = 0;i<lista.size();i++) {
-            if(lista.get(i).getId().equals(id)) {
-                indice = i;
-                break;
-            }
-        }
-
-        lista.remove(indice);
+    public String deletar(@PathVariable("id") Long id) {
+        categoriaService.deletar(id);
 
         return "Categoria com id "+id+" removido com sucesso!";
     }
