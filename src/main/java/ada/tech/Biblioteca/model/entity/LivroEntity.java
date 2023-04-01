@@ -2,10 +2,7 @@ package ada.tech.Biblioteca.model.entity;
 
 import ada.tech.Biblioteca.model.dto.CategoriaDTO;
 import ada.tech.Biblioteca.model.dto.LivroDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +13,7 @@ import lombok.Setter;
 public class LivroEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="nome", nullable = false, unique = true)
     private String nome;
@@ -23,8 +21,8 @@ public class LivroEntity {
     @Column(name="isbn", nullable = false, unique = true, length = 13)
     private String isbn;
 
-    private Long editora_id;
-    private Long categoria_id;
+//    private Long editora_id;
+//    private Long categoria_id;
 
     public LivroEntity update(LivroDTO livro) {
         this.id = livro.getId();

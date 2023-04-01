@@ -10,8 +10,8 @@ import lombok.Setter;
 public class LivroDTO {
     private Long id;
     private String nome;
-    private Long editora_id;
-    private Long categoria_id;
+//    private Long editora_id;
+//    private Long categoria_id;
     private String isbn;
 
     public LivroDTO update(LivroEntity livro) {
