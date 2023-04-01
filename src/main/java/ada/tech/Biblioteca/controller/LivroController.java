@@ -3,6 +3,7 @@ package ada.tech.Biblioteca.controller;
 import ada.tech.Biblioteca.model.dto.LivroDTO;
 import ada.tech.Biblioteca.service.EditoraService;
 import ada.tech.Biblioteca.service.LivroService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,9 @@ public class LivroController {
     public ResponseEntity<Object> pegarUm(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(livroService.pegarPorId(id));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

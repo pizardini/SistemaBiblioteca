@@ -2,6 +2,7 @@ package ada.tech.Biblioteca.controller;
 
 import ada.tech.Biblioteca.model.dto.CategoriaDTO;
 import ada.tech.Biblioteca.service.CategoriaService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,12 @@ public class CategoriaController {
     public ResponseEntity<Object> pegarUm(@PathVariable("id") Long id){
         try {
             return ResponseEntity.ok(categoriaService.pegarPorId(id));
-        } catch (Exception e) {
+        }
+        catch(EntityNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+        }
+        catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
