@@ -25,7 +25,7 @@ public class CategoriaService {
             return new CategoriaDTO().update(categoriaEntity);
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Categoria não encontrada");
     }
 
     public CategoriaDTO criar(CategoriaDTO categoriaDTO) {
@@ -44,7 +44,7 @@ public class CategoriaService {
             return new CategoriaDTO().update(categoriaEntity);
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Categoria não encontrada");
     }
 
     public void deletar(Long id) {
@@ -56,7 +56,7 @@ public class CategoriaService {
             return;
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Categoria não encontrada");
     }
 
     public List<CategoriaDTO> listar() {

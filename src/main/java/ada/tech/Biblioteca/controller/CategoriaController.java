@@ -33,7 +33,7 @@ public class CategoriaController {
         } catch (Exception e) {
             log.error(e.getMessage());
             //e.printStackTrace(); //log pra mostrar toda a cadeira de erro
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
@@ -44,11 +44,11 @@ public class CategoriaController {
         }
         catch(EntityNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MensagemDTO(e.getMessage()));
         }
         catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
@@ -62,7 +62,7 @@ public class CategoriaController {
             return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.criar(categoriaDTO));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
 
 
@@ -75,10 +75,10 @@ public class CategoriaController {
             return ResponseEntity.ok(categoriaService.editar(categoriaDTO, id));
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
@@ -92,7 +92,7 @@ public class CategoriaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 }

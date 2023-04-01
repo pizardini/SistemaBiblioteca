@@ -27,7 +27,7 @@ public class LivroController {
             return ResponseEntity.ok(livroService.listar());
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
 
     }
@@ -38,10 +38,10 @@ public class LivroController {
             return ResponseEntity.ok(livroService.pegarPorId(id));
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
 
     }
@@ -52,7 +52,7 @@ public class LivroController {
             return ResponseEntity.status(HttpStatus.CREATED).body(livroService.criar(livroDTO));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
@@ -62,10 +62,10 @@ public class LivroController {
             return ResponseEntity.ok(livroService.editar(livroDTO, id));
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 
@@ -79,7 +79,7 @@ public class LivroController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
         }
     }
 }

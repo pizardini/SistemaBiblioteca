@@ -27,7 +27,7 @@ public class EditoraService {
             return new EditoraDTO().update(editoraEntity);
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Editora não encontrada");
     }
 
     public EditoraDTO criar(EditoraDTO editoraDTO) {
@@ -46,7 +46,7 @@ public class EditoraService {
             return new EditoraDTO().update(editoraEntity);
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Editora não encontrada");
     }
 
     public void deletar(Long id) {
@@ -58,7 +58,7 @@ public class EditoraService {
             return;
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Editora não encontrada");
     }
 
     public List<EditoraDTO> listar() {

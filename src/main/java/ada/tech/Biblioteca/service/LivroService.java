@@ -24,7 +24,7 @@ public class LivroService {
             return new LivroDTO().update(livroEntity);
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Livro não encontrado");
     }
 
     public LivroDTO criar(LivroDTO livroDTO) {
@@ -43,7 +43,7 @@ public class LivroService {
             return new LivroDTO().update(livroEntity);
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Livro não encontrado");
     }
 
     public void deletar(Long id) {
@@ -55,7 +55,7 @@ public class LivroService {
             return;
         }
 
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Livro não encontrado");
     }
 
     public List<LivroDTO> listar() {
