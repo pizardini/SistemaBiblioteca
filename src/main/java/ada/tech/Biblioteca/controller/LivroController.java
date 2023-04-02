@@ -5,6 +5,7 @@ import ada.tech.Biblioteca.model.dto.MensagemDTO;
 import ada.tech.Biblioteca.service.EditoraService;
 import ada.tech.Biblioteca.service.LivroService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> criar(@RequestBody LivroDTO livroDTO) {
+    public ResponseEntity<Object> criar(@RequestBody @Valid LivroDTO livroDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(livroService.criar(livroDTO));
         } catch (Exception e) {
@@ -57,7 +58,7 @@ public class LivroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editar(@RequestBody LivroDTO livroDTO, @PathVariable("id") Long id) {
+    public ResponseEntity<Object> editar(@RequestBody @Valid LivroDTO livroDTO, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(livroService.editar(livroDTO, id));
         } catch (EntityNotFoundException e) {

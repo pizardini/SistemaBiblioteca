@@ -4,6 +4,7 @@ import ada.tech.Biblioteca.model.dto.EditoraDTO;
 import ada.tech.Biblioteca.model.dto.MensagemDTO;
 import ada.tech.Biblioteca.service.EditoraService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class EditoraController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> criar(@RequestBody EditoraDTO editoraDTO) {
+    public ResponseEntity<Object> criar(@RequestBody @Valid EditoraDTO editoraDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(editoraService.criar(editoraDTO));
         } catch (Exception e) {
@@ -56,7 +57,7 @@ public class EditoraController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editar(@RequestBody EditoraDTO editoraDTO, @PathVariable("id") Long id) {
+    public ResponseEntity<Object> editar(@RequestBody @Valid EditoraDTO editoraDTO, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(editoraService.editar(editoraDTO, id));
         } catch (EntityNotFoundException e) {

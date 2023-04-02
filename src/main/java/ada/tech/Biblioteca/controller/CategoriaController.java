@@ -4,6 +4,7 @@ import ada.tech.Biblioteca.model.dto.CategoriaDTO;
 import ada.tech.Biblioteca.model.dto.MensagemDTO;
 import ada.tech.Biblioteca.service.CategoriaService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,7 +58,7 @@ public class CategoriaController {
 //        return categoriaService.criar(categoriaDTO);
 //    }
     @PostMapping
-    public ResponseEntity<Object> criar(@RequestBody CategoriaDTO categoriaDTO) {
+    public ResponseEntity<Object> criar(@RequestBody @Valid CategoriaDTO categoriaDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.criar(categoriaDTO));
         } catch (Exception e) {
@@ -70,7 +71,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editar(@RequestBody CategoriaDTO categoriaDTO, @PathVariable("id") Long id) {
+    public ResponseEntity<Object> editar(@RequestBody @Valid CategoriaDTO categoriaDTO, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(categoriaService.editar(categoriaDTO, id));
         } catch (EntityNotFoundException e) {
