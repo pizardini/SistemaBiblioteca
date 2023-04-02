@@ -1,7 +1,6 @@
 package ada.tech.Biblioteca.model.entity;
 
 
-import ada.tech.Biblioteca.model.dto.CategoriaDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +22,7 @@ public class CategoriaEntity {
     @Column (name="descrição")
     private String descricao;
 
-    @OneToMany(mappedBy = "categoriaEntity")
+    @OneToMany(mappedBy = "categoria")
     private List<LivroEntity> listaLivros;
 
 //    public CategoriaEntity update(CategoriaDTO categoria) {

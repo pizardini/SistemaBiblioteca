@@ -36,7 +36,7 @@ public class EditoraService {
     }
 
     public EditoraDTO criar(EditoraDTO editoraDTO) {
-        EditoraEntity editora = new EditoraEntity().update(editoraDTO);
+        EditoraEntity editora = mapper.update(editoraDTO);
         editora = repository.save(editora);
 
         return mapper.update(editora);
@@ -44,7 +44,7 @@ public class EditoraService {
 
     public EditoraDTO editar(EditoraDTO editoraDTO, Long id) {
         if (repository.existsById(id)) {
-            EditoraEntity editoraEntity = new EditoraEntity().update(editoraDTO);
+            EditoraEntity editoraEntity = mapper.update(editoraDTO);
             editoraEntity.setId(id);
             editoraEntity = repository.save(editoraEntity);
 

@@ -1,6 +1,8 @@
 package ada.tech.Biblioteca.service;
 
 import ada.tech.Biblioteca.model.dto.LivroDTO;
+import ada.tech.Biblioteca.model.entity.CategoriaEntity;
+import ada.tech.Biblioteca.model.entity.EditoraEntity;
 import ada.tech.Biblioteca.model.entity.LivroEntity;
 import ada.tech.Biblioteca.model.mapper.LivroMapper;
 import ada.tech.Biblioteca.repository.LivroRepository;
@@ -32,7 +34,7 @@ public class LivroService {
     }
 
     public LivroDTO criar(LivroDTO livroDTO) {
-        LivroEntity livro = new LivroEntity().update(livroDTO);
+        LivroEntity livro = mapper.update(livroDTO);
         livro = repository.save(livro);
 
         return mapper.update(livro);
@@ -40,7 +42,7 @@ public class LivroService {
 
     public LivroDTO editar(LivroDTO livroDTO, Long id) {
         if(repository.existsById(id)) {
-            LivroEntity livroEntity = new LivroEntity().update(livroDTO);
+            LivroEntity livroEntity = mapper.update(livroDTO);
             livroEntity.setId(id);
             livroEntity = repository.save(livroEntity);
 
@@ -64,6 +66,25 @@ public class LivroService {
 
     public List<LivroDTO> listar() {
         List<LivroEntity> listaEntities = repository.findAll();
+        return mapper.updateListDTO(listaEntities);
+    }
+
+    public Object buscarPorCategoria(Long categoriaId) {
+        CategoriaEntity categoria = new CategoriaEntity();
+        categoria.setId(categoriaId);
+        List<LivroEntity> listaEntities = repository.findByCategoriaId(categoriaId);
+        return mapper.updateListDTO(listaEntities);
+    }
+
+    public Object buscarPorEditora(Long editoraId) {
+        EditoraEntity editora = new EditoraEntity();
+        editora.setId(editoraId);
+        List<LivroEntity> listaEntities = repository.findByEditoraId(editoraId);
+        return mapper.updateListDTO(listaEntities);
+    }
+
+    public List<LivroDTO> buscarPorNomeOuIsbn(String nome, String isbn) {
+        List<LivroEntity> listaEntities = repository.findByNomeOrIsbn(nome, isbn);
         return mapper.updateListDTO(listaEntities);
     }
 }

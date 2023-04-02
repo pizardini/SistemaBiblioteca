@@ -2,11 +2,11 @@ package ada.tech.Biblioteca.model.dto;
 
 import ada.tech.Biblioteca.model.entity.CategoriaEntity;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class CategoriaDTO {
     private Long id;
     @NotBlank(message = "nome deve conter algum valor")

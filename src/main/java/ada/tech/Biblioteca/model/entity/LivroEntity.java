@@ -1,7 +1,5 @@
 package ada.tech.Biblioteca.model.entity;
 
-import ada.tech.Biblioteca.model.dto.CategoriaDTO;
-import ada.tech.Biblioteca.model.dto.LivroDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,17 +22,17 @@ public class LivroEntity {
 //    private Long editora_id;
     @ManyToOne
     @JoinColumn(name="editora")
-    private EditoraEntity editoraEntity;
+    private EditoraEntity editora;
 
 //    private Long categoria_id;
     @ManyToOne
     @JoinColumn(name="categoria")
-    private CategoriaEntity categoriaEntity;
+    private CategoriaEntity categoria;
 
-    public LivroEntity update(LivroDTO livro) {
-        this.id = livro.getId();
-        this.nome = livro.getNome();
-        this.isbn = livro.getIsbn();
-        return this;
-    }
+//    public LivroEntity update(LivroDTO livro) {
+//        this.id = livro.getId();
+//        this.nome = livro.getNome();
+//        this.isbn = livro.getIsbn();
+//        return this;
+//    }
 }

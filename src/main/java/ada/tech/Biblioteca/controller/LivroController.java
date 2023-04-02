@@ -22,7 +22,8 @@ public class LivroController {
     @Autowired
     private LivroService livroService;
 
-    @GetMapping
+
+
     public ResponseEntity<Object> listar() {
         try {
             return ResponseEntity.ok(livroService.listar());
@@ -78,6 +79,37 @@ public class LivroController {
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO(e.getMessage()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/buscarPorCategoria")
+    public ResponseEntity<Object> buscarPorCategoria(@PathVariable Long categoriaId) {
+        try {
+            return ResponseEntity.ok(livroService.buscarPorCategoria(categoriaId));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/buscarPorCategoria")
+    public ResponseEntity<Object> buscarPorEditora(@PathVariable Long editoraId) {
+        try {
+            return ResponseEntity.ok(livroService.buscarPorEditora(editoraId));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<Object> buscarPorNomeOuIsbn(@RequestParam(name="nome", defaultValue = "") String nome,
+                                                      @RequestParam(name="isbn", defaultValue = "") String isbn) {
+        try {
+            return ResponseEntity.ok(livroService.buscarPorNomeOuIsbn(nome, isbn));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(e.getMessage()));

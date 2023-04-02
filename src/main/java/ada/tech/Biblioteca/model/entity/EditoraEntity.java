@@ -1,7 +1,5 @@
 package ada.tech.Biblioteca.model.entity;
 
-import ada.tech.Biblioteca.model.dto.CategoriaDTO;
-import ada.tech.Biblioteca.model.dto.EditoraDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,13 +21,13 @@ public class EditoraEntity {
     @Column(name="descricao")
     private String descricao;
 
-    @OneToMany(mappedBy = "editoraEntity")
+    @OneToMany(mappedBy = "editora")
     private List<LivroEntity> listaLivros;
 
-    public EditoraEntity update(EditoraDTO editora) {
-        this.id = editora.getId();
-        this.nome = editora.getNome();
-        this.descricao = editora.getDescricao();
-        return this;
-    }
+//    public EditoraEntity update(EditoraDTO editora) {
+//        this.id = editora.getId();
+//        this.nome = editora.getNome();
+//        this.descricao = editora.getDescricao();
+//        return this;
+//    }
 }
